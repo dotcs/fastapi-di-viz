@@ -22,9 +22,9 @@ jobs:
           pip install poetry
           poetry install
 
-      # - name: Run tests
-      #   run: |
-      #     poetry run pytest
+      - name: Run tests
+        run: |
+          poetry run pytest --cov=fastapi_di_viz
 
       - name: Build package
         run: |

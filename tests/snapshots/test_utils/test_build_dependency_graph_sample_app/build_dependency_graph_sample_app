@@ -1,0 +1,21 @@
+// FastAPI Dependency Graph
+digraph {
+	root
+	get_settings
+	root -> get_settings
+	a
+	get_serviceA
+	a -> get_serviceA
+	get_serviceA
+	get_repo
+	get_serviceA -> get_repo
+	get_serviceA
+	get_settings
+	get_serviceA -> get_settings
+	b
+	get_serviceB
+	b -> get_serviceB
+	get_serviceB
+	get_repo
+	get_serviceB -> get_repo
+}
