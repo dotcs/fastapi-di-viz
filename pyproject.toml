@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "fastapi-di-viz"
+version = "0.1.0"
+description = "Visualize a FastAPI dependency injection graph"
+authors = ["dotcs <git@dotcs.me>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.scripts]
+fastapi-di-viz = "fastapi_di_viz.app:main"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[tool.poetry.group.dev.dependencies]
+fastapi = "^0.115.5"
+graphviz = "^0.20.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
