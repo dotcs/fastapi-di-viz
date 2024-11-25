@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fastapi-di-viz"
-version = "0.1.0-pre.1"
+version = "0.1.0-pre.2"
 description = "Visualize a FastAPI dependency injection graph"
 authors = ["dotcs <git@dotcs.me>"]
 license = "MIT"
@@ -20,6 +20,14 @@ classifiers = [
     "Framework :: FastAPI",
     "Typing :: Typed"
 ]
+keywords = ["fastapi", "dependency injection", "graph", "visualization"]
+
+[project]
+requires-python = "^3.10,<4.0"
+
+[project.urls]
+"Source" = "https://github.com/dotcs/fastapi-di-viz"
+"Issue Tracker" = "https://github.com/dotcs/fastapi-di-viz/issues"
 
 [tool.poetry.scripts]
 fastapi-di-viz = "fastapi_di_viz.app:main"
