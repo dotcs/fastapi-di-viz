@@ -28,7 +28,11 @@ def run(args: argparse.Namespace):
 
 def main():
     argparser = argparse.ArgumentParser(
-        description="Inspect FastAPI application DI injected dependencies",
+        description="""Inspect FastAPI application DI injected dependencies
+
+Important: Install this tool in the same virtual environment that also contains
+the application that it should analyze.
+""",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     argparser.add_argument(

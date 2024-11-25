@@ -45,7 +45,8 @@ def get_dependencies(callable: Callable) -> List[Type]:
 
 def build_dependency_graph(app: FastAPI) -> Digraph:
     """
-    Create a dependency graph of the FastAPI application.
+    Create a dependency graph of the FastAPI application as a Digraph (in DOT
+    language).
     Nodes are callables and edges are dependencies.
     """
     dot = Digraph(comment="FastAPI Dependency Graph")
