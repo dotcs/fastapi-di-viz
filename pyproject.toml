@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fastapi-di-viz"
-version = "0.1.0-pre.2"
+version = "0.1.0-pre.3"
 description = "Visualize a FastAPI dependency injection graph"
 authors = ["dotcs <git@dotcs.me>"]
 license = "MIT"
