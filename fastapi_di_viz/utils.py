@@ -69,9 +69,12 @@ def build_dependency_graph(app: FastAPI) -> Digraph:
             visit(route.endpoint)
 
     for parent, child in stack:
+        # Use the name of the callable if available, otherwise use the class name.
+        # This is useful for lambdas and other callables without a __name__ attribute.
+        child_name = getattr(child, "__name__", child.__class__.__name__)
         dot.node(parent.__name__)
-        dot.node(child.__name__)
-        dot.edge(parent.__name__, child.__name__)
+        dot.node(child_name)
+        dot.edge(parent.__name__, child_name)
 
     return dot
 
