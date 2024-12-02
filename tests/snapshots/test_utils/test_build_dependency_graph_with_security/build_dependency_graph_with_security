@@ -1,0 +1,6 @@
+// FastAPI Dependency Graph
+digraph {
+	home
+	HTTPBearer
+	home -> HTTPBearer
+}

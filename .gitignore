@@ -1,0 +1,5 @@
+# Python related files
+*.pyc
+__pycache__/
+dist/
+.coverage
