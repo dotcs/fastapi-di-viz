@@ -1,3 +1,6 @@
+[![PyPI version](https://badge.fury.io/py/fastapi-di-viz.svg?icon=si%3Apython)](https://pypi.org/project/fastapi-di-viz/)
+![CI build](https://github.com/dotcs/fastapi-di-viz/actions/workflows/ci.yml/badge.svg?branch=main&event=push)
+
 # FastAPI Dependency Injection Visualizer
 
 This is a simple tool to visualize the dependency injection tree of a FastAPI application.
