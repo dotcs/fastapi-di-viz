@@ -1,4 +1,5 @@
 from inspect import _empty, signature
+from dataclasses import dataclass
 from typing import (
     Annotated,
     Callable,
@@ -15,6 +16,17 @@ import fastapi
 from fastapi import Depends, FastAPI
 from fastapi.routing import APIRoute
 from graphviz import Digraph
+
+
+@dataclass
+class NodeParams:
+    """Additional parameters for a node in the dependency graph."""
+
+    is_endpoint: bool
+    """
+    Determines if the node is a FastAPI endpoint (entrypoint for the dependency
+    injection).
+    """
 
 
 def get_dependencies(callable: Callable) -> List[Type]:
@@ -52,7 +64,7 @@ def build_dependency_graph(app: FastAPI) -> Digraph:
     dot = Digraph(comment="FastAPI Dependency Graph")
 
     visited: Set[Callable] = set()
-    stack: List[Tuple[Callable, Type, bool]] = []
+    stack: List[Tuple[Callable, Type, NodeParams]] = []
 
     def visit(callable: Callable, parent: Optional[Callable] = None):
         if callable in visited:
@@ -60,20 +72,20 @@ def build_dependency_graph(app: FastAPI) -> Digraph:
         visited.add(callable)
 
         dependencies = get_dependencies(callable)
-        is_leaf = parent is None
+        node_params = NodeParams(is_endpoint=parent is None)
         for dep in dependencies:
-            stack.append((callable, dep, is_leaf))
+            stack.append((callable, dep, node_params))
             visit(dep, callable)
 
     for route in app.routes:
         if isinstance(route, APIRoute):
             visit(route.endpoint)
 
-    for parent, child, is_leaf in stack:
+    for parent, child, params in stack:
         # Use the name of the callable if available, otherwise use the class name.
         # This is useful for lambdas and other callables without a __name__ attribute.
         child_name = getattr(child, "__name__", child.__class__.__name__)
-        if is_leaf:
+        if params.is_endpoint:
             dot.node(parent.__name__, None, shape="rounded")
         else:
             dot.node(parent.__name__, None)
