@@ -1,9 +1,9 @@
 // FastAPI Dependency Graph
 digraph {
-	root
+	root [shape=rounded]
 	get_settings
 	root -> get_settings
-	a
+	a [shape=rounded]
 	get_serviceA
 	a -> get_serviceA
 	get_serviceA
@@ -12,7 +12,7 @@ digraph {
 	get_serviceA
 	get_settings
 	get_serviceA -> get_settings
-	b
+	b [shape=rounded]
 	get_serviceB
 	b -> get_serviceB
 	get_serviceB

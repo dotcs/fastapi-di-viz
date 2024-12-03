@@ -52,27 +52,31 @@ def build_dependency_graph(app: FastAPI) -> Digraph:
     dot = Digraph(comment="FastAPI Dependency Graph")
 
     visited: Set[Callable] = set()
-    stack: List[Tuple[Callable, Type]] = []
+    stack: List[Tuple[Callable, Type, bool]] = []
 
-    def visit(callable: Callable, _parent: Optional[Callable] = None):
+    def visit(callable: Callable, parent: Optional[Callable] = None):
         if callable in visited:
             return
         visited.add(callable)
 
         dependencies = get_dependencies(callable)
+        is_leaf = parent is None
         for dep in dependencies:
-            stack.append((callable, dep))
+            stack.append((callable, dep, is_leaf))
             visit(dep, callable)
 
     for route in app.routes:
         if isinstance(route, APIRoute):
             visit(route.endpoint)
 
-    for parent, child in stack:
+    for parent, child, is_leaf in stack:
         # Use the name of the callable if available, otherwise use the class name.
         # This is useful for lambdas and other callables without a __name__ attribute.
         child_name = getattr(child, "__name__", child.__class__.__name__)
-        dot.node(parent.__name__)
+        if is_leaf:
+            dot.node(parent.__name__, None, shape="rounded")
+        else:
+            dot.node(parent.__name__, None)
         dot.node(child_name)
         dot.edge(parent.__name__, child_name)
 
@@ -86,6 +90,15 @@ def mermaid_from_dot(dot: Digraph) -> str:
     mermaid = "---\ntitle: FastAPI dependency chain\n---\n"
     mermaid += "graph TD;\n"
     for node in dot.body:
+        shape = None
+        if "shape" in node:
+            # node content, e.g., `root [shape=rounded]`
+            name = node.split("[")[0].strip()
+            shape = node.split("=")[1].split("]")[0]
+            if shape == "rounded":
+                mermaid += f"    {name}([{name}])\n"
+            else:
+                mermaid += f"    {name}({name})\n"
         if "label" in node:
             name = node.split("[")[0].strip()
             label = node.split("[")[1].split("]")[0]
