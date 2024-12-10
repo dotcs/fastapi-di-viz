@@ -27,6 +27,9 @@ A sample graph for the application in [fastapi_di_viz/sample](./fastapi_di_viz/s
 title: FastAPI dependency chain
 ---
 graph TD;
+    root([root])
+    a([a])
+    b([b])
     root --> get_settings
     a --> get_serviceA
     get_serviceA --> get_repo

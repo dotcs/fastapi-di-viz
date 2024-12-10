@@ -1,12 +1,12 @@
 // FastAPI Dependency Graph
 digraph {
-	home
+	home [shape=rounded]
 	get_service
 	home -> get_service
 	get_service
 	get_settings
 	get_service -> get_settings
-	home
+	home [shape=rounded]
 	get_settings
 	home -> get_settings
 }
