@@ -9,4 +9,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-tbd
+- Vizualize FastAPI endpoints differently from other dependencies to make them stand out in the graph.
